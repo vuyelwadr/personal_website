@@ -10,17 +10,26 @@ const gui = new dat.GUI()
 const scene = new THREE.Scene()
 // scene.background = new THREE.Color( 0xff0000 );
 
-const light = new THREE.PointLight()
-light.position.set(0, 1, 3)
-scene.add(light)
+// const light = new THREE.DirectionalLight()
+// var light_1 = 0
+// light.position.set(0, 1, light_1)
+// scene.add(light)
 
-// const pointLightHelper = new THREE.PointLightHelper(light, 1)
-// scene.add(pointLightHelper);
+// when spotlight not on model then model has no light
+// when Directional light not on model then model has some light
+const light = new THREE.SpotLight(0xffffff, 2.3, 2, 90 )
+
+light.position.set(0,1,0);
+// light.lookAt(0,0,0);
+scene.add(light)
+const pointLightHelper = new THREE.SpotLightHelper(light, 1)
+scene.add(pointLightHelper);
 
 const light1 = gui.addFolder('Middle Light')
 light1.add(light.position, 'x').min(-3).max(3).step(0.01)
-light1.add(light.position, 'y').min(-3).max(3).step(0.01)
+light1.add(light.position, 'y').min(-10).max(10).step(0.01)
 light1.add(light.position, 'z').min(-3).max(3).step(0.01)
+light1.add(light, 'intensity').min(-5).max(5).step(0.01)
 // gui.add(light, 'intensity').min(-3).max(3).step(0.01)
 
 
@@ -68,10 +77,22 @@ const windowHalfX = window.innerWidth / 2;
 const windowHalfY = window.innerHeight / 2
 
 function onDocumentMouseMove(event: MouseEvent) {
-    mouseX = event.clientX - windowHalfX
-    console.log(mouseX)
-    mouseY = event.clientY - windowHalfY
-    console.log(mouseY)
+    if (event.clientX > window.innerWidth/2.7 && event.clientX < window.innerWidth / 1.5 && event.clientY > window.innerHeight/3.5 && event.clientY < window.innerHeight/1.2){
+        mouseX = (event.clientX - windowHalfX) * 8
+        // light.position.set(0, 1, 3)
+        light.position.set(mouseX * 0.001, 1,2.3)
+        // scene.add(light)
+    }
+    else{
+        // light.position.set(0, 1, 0)
+    }
+
+    
+    // console.log("innerHeight" + window.innerWidth)
+    // console.log(event.clientX)
+    // mouseY = event.clientY - windowHalfY
+    // mouseY = 0;
+    // console.log(mouseY)
 }
 
 const clock = new THREE.Clock();
