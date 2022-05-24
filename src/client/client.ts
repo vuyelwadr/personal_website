@@ -7,7 +7,7 @@ import { MixOperation, PointLightHelper } from 'three'
 
 
 
-
+// adds gui controls to the window
 const gui = new dat.GUI()
 
 const scene = new THREE.Scene()
@@ -29,7 +29,7 @@ light1.add(light.position, 'x').min(-3).max(3).step(0.01)
 light1.add(light.position, 'y').min(-10).max(10).step(0.01)
 light1.add(light.position, 'z').min(-3).max(3).step(0.01)
 light1.add(light, 'intensity').min(-5).max(5).step(0.01)
-// gui.add(light, 'intensity').min(-3).max(3).step(0.01)
+
 
 
 

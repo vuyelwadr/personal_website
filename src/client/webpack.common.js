@@ -1,7 +1,9 @@
 const path = require('path')
 
 module.exports = {
-    entry: './src/client/client.ts',
+    entry: {
+        homePage: './src/client/client.ts',
+        mainPage: './src/client/main.ts'},
     module: {
         rules: [
             {
@@ -15,7 +17,8 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js'],
     },
     output: {
-        filename: 'bundle.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, '../../dist/client'),
+        chunkFilename: '[id].[chunkhash].js'
     },
 }
